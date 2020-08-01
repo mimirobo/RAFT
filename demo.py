@@ -14,11 +14,12 @@ from utils import flow_viz
 from utils.utils import InputPadder
 
 
-
+counter = 0
 DEVICE = 'cuda'
 
 def load_image(imfile):
     img = np.array(Image.open(imfile)).astype(np.uint8)
+    img = np.stack((img,)*3, axis=-1)
     img = torch.from_numpy(img).permute(2, 0, 1).float()
     return img
 
@@ -36,6 +37,7 @@ def load_image_list(image_files):
         
 
 def viz(img, flo):
+    global counter
     img = img[0].permute(1,2,0).cpu().numpy()
     flo = flo[0].permute(1,2,0).cpu().numpy()
     
@@ -43,8 +45,10 @@ def viz(img, flo):
     flo = flow_viz.flow_to_image(flo)
     img_flo = np.concatenate([img, flo], axis=0)
 
-    cv2.imshow('image', img_flo[:, :, [2,1,0]]/255.0)
-    cv2.waitKey()
+    #cv2.imshow('image', img_flo[:, :, [2,1,0]]/255.0)
+    cv2.imwrite('saved_frames/img-{}'.format(counter), flo)
+    counter = counter + 1
+    #cv2.waitKey()
 
 
 def demo(args):
@@ -57,7 +61,8 @@ def demo(args):
 
     with torch.no_grad():
         images = glob.glob(os.path.join(args.path, '*.png')) + \
-                 glob.glob(os.path.join(args.path, '*.jpg'))
+                 glob.glob(os.path.join(args.path, '*.jpg')) + \
+                 glob.glob(os.path.join(args.path, '*.tif'))
 
         images = load_image_list(images)
         for i in range(images.shape[0]-1):
