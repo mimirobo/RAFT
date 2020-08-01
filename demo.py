@@ -47,7 +47,7 @@ def viz(img, flo , dir_name):
 
     #cv2.imshow('image', img_flo[:, :, [2,1,0]]/255.0)
     cv2.imwrite(dir_name+'/img-{}.png'.format(counter), flo)
-    print("Optical FLow {} saved in {}".format(counter, dir_name))
+    #print("Optical FLow {} saved in {}".format(counter, dir_name))
     counter = counter + 1
     #cv2.waitKey()
 
