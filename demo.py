@@ -62,7 +62,7 @@ def demo(args):
     model.eval()
 
     parent_dir = args.input_dir + "/*"
-    all_sub_dirs = glob(parent_dir)
+    all_sub_dirs = glob.glob(parent_dir)
     #Create Export Sub-Dirs
     for sub_dir_path in all_sub_dirs:
         output_dir_path = args.output_dir + "/" + os.path.basename(sub_dir_path)
