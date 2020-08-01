@@ -66,6 +66,8 @@ def demo(args):
     #Create Export Sub-Dirs
     for sub_dir_path in all_sub_dirs:
         output_dir_path = args.output_dir + "/" + os.path.basename(sub_dir_path)
+        if os.path.exists(output_dir_path):
+            continue
         os.mkdir(output_dir_path)
         counter = 0
         if len(os.listdir(sub_dir_path) ) == 0:
