@@ -68,6 +68,8 @@ def demo(args):
         output_dir_path = args.output_dir + "/" + os.path.basename(sub_dir_path)
         os.mkdir(output_dir_path)
         counter = 0
+        if len(os.listdir(sub_dir_path) ) == 0:
+            continue
         with torch.no_grad():
             images = glob.glob(os.path.join(sub_dir_path, '*.png')) + \
                     glob.glob(os.path.join(sub_dir_path, '*.jpg')) + \
