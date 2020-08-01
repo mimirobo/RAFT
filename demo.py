@@ -46,7 +46,8 @@ def viz(img, flo):
     img_flo = np.concatenate([img, flo], axis=0)
 
     #cv2.imshow('image', img_flo[:, :, [2,1,0]]/255.0)
-    cv2.imwrite('saved_frames/img-{}'.format(counter), flo)
+    cv2.imwrite('saved_frames/img-{}.png'.format(counter), flo)
+    print("Optical FLow {} saved.".format(counter))
     counter = counter + 1
     #cv2.waitKey()
 
